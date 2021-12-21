@@ -2,11 +2,16 @@ package com.example.simpletodo
 
 import android.content.Intent
 import android.app.Activity
+import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.TextView
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.apache.commons.io.FileUtils
@@ -56,7 +61,29 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
+        //adapter = TaskItemAdapter(this, listOfTasks, onLongClickListener, onShortClickListener)
         adapter = TaskItemAdapter(listOfTasks, onLongClickListener, onShortClickListener)
+
+        val swipegesture = object : SwipeGesture(this){
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+               when(direction){
+
+                   ItemTouchHelper.LEFT ->{
+
+                       adapter.deleteItem(viewHolder.adapterPosition)
+                       saveItems()
+                   }
+
+               }
+
+
+            }
+
+        }
+        val touchHelper = ItemTouchHelper(swipegesture)
+        touchHelper.attachToRecyclerView(recyclerView)
 
         recyclerView.adapter = adapter
 
@@ -80,6 +107,10 @@ class MainActivity : AppCompatActivity() {
 
             saveItems()
         }
+    }
+
+    fun onItemClicked(view : View) {
+        adapter.notifyDataSetChanged()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

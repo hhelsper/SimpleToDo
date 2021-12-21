@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".TaskItemAdapter"
+    android:background="@drawable/custom"
+    android:padding="15dp"
+    android:layout_marginTop="10dp">
+
+
+
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onItemClicked"
+        android:soundEffectsEnabled="true"/>
+<!--        android:onClick="itemClicked"-->
+        <!--android:layout_centerVertical="true"-->
+
+
+    <TextView
+        android:id="@+id/item_textView"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/checkbox"
+        android:layout_toRightOf="@+id/checkbox"
+        android:text="text"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="italic|bold" />
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/close"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignBottom="@+id/item_textView"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentRight="true"-->
+
+<!--        android:background="@android:color/transparent"-->
+<!--        android:gravity="end"-->
+<!--        android:src="@android:drawable/btn_dialog" />-->
+
+</RelativeLayout>

@@ -1,12 +1,17 @@
 package com.example.simpletodo
 
+import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.security.AccessControlContext
 
-class TaskItemAdapter(val listOfItems: List<String>,
+class TaskItemAdapter( val listOfItems: MutableList<String>,
                       val longClickListener: OnLongClickListener,
                         val shortClickListener: OnShortClickListener) :
     RecyclerView.Adapter<TaskItemAdapter.ViewHolder>(){
@@ -21,12 +26,17 @@ class TaskItemAdapter(val listOfItems: List<String>,
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val context = parent.context
-        val inflater = LayoutInflater.from(context)
-        // Inflate the custom layout
-        val contactView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false)
-        // Return a new holder instance
-        return ViewHolder(contactView)
+
+        val view= LayoutInflater.from(parent.context).inflate(R.layout.row_item_layout, parent, false)
+        
+        return ViewHolder(view)
+    }
+
+    fun deleteItem(i : Int){
+
+        listOfItems.removeAt(i)
+        notifyDataSetChanged()
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -34,6 +44,11 @@ class TaskItemAdapter(val listOfItems: List<String>,
         val item = listOfItems.get(position)
 
         holder.textView.text = item
+        if(holder.checkbox.isChecked) {
+            holder.textView.paintFlags = holder.textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        } else{
+            holder.textView.paintFlags = holder.textView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+        }
     }
 
     override fun getItemCount(): Int {
@@ -43,9 +58,11 @@ class TaskItemAdapter(val listOfItems: List<String>,
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //store references to elements in our layout view
         val textView : TextView
+        lateinit var checkbox : CheckBox
 
         init{
-            textView = itemView.findViewById(android.R.id.text1)
+            textView = itemView.findViewById(R.id.item_textView)
+            checkbox = itemView.findViewById(R.id.checkbox)
 
             itemView.setOnLongClickListener {
                 longClickListener.onItemLongClicked(adapterPosition)
@@ -55,6 +72,7 @@ class TaskItemAdapter(val listOfItems: List<String>,
                 shortClickListener.onItemShortClicked(adapterPosition)
                 true
             }
+
         }
     }
 }
