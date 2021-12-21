@@ -18,6 +18,11 @@ The following **optional** features are implemented:
 
 * [x] User can **tap a todo item in the list and bring up an edit screen for the todo item** and then have any changes to the text reflected in the todo list
 
+The following **additional** features have been added:
+* [x] User can swipe left to delete item from Todo list
+* [x] User can check checkbox to show task has been completed and strikethrough will occur on completed task to mark it as completed
+* [x] A colored background has been set as well as colors for the Todo list items
+* [x] Todo list items appear in rounded boxes to provide a more easy way to visually differentiate between the listed tasks 
 
 ## Video Walkthrough
 
